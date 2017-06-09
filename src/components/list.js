@@ -8,20 +8,35 @@ class List extends Component {
   }
 
   render() {
+    let list = [];
+    let list_active = [];
+    let list_inactive = [];
+
     const list_all = this.props.todos.map(todo => {
       if (!todo.isDone) {
-        return <li onClick={e => this.props.toggle(todo)}>{todo.task}</li>;
-      } else {
+        list_active.push(
+          <li onClick={e => this.props.toggle(todo)} key={todo.id}>
+            {todo.task}
+          </li>
+        );
         return (
-          <li onClick={e => this.props.toggle(todo)}><s> {todo.task} </s></li>
+          <li onClick={e => this.props.toggle(todo)} key={todo.id}>
+            {todo.task}
+          </li>
+        );
+      } else {
+        list_inactive.push(
+          <li onClick={e => this.props.toggle(todo)} key={todo.id}>
+            <s> {todo.task} </s>
+          </li>
+        );
+        return (
+          <li onClick={e => this.props.toggle(todo)} key={todo.id}>
+            <s> {todo.task} </s>
+          </li>
         );
       }
     });
-
-    const list_active = this.props.todos.filter(todo => todo.isDone);
-    const list_inactive = this.props.todos.filter(todo => !todo.isDone);
-
-    let list = [];
 
     if (this.state.display === 'All') {
       list = list_all;
