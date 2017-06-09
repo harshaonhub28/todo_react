@@ -11,6 +11,9 @@ class List extends Component {
     let list = [];
     let list_active = [];
     let list_inactive = [];
+    let all_style = { backgroundColor: '' };
+    let active_style = { backgroundColor: '' };
+    let inactive_style = { backgroundColor: '' };
 
     const list_all = this.props.todos.map(todo => {
       if (!todo.isDone) {
@@ -40,20 +43,40 @@ class List extends Component {
 
     if (this.state.display === 'All') {
       list = list_all;
+      all_style.backgroundColor = 'blue';
+      active_style.backgroundColor = '';
+      inactive_style.backgroundColor = '';
     } else if (this.state.display === 'Active') {
       list = list_active;
-    } else {
+      all_style.backgroundColor = '';
+      active_style.backgroundColor = 'blue';
+      inactive_style.backgroundColor = '';
+    } else if (this.state.display === 'Inactive') {
       list = list_inactive;
+      all_style.backgroundColor = '';
+      active_style.backgroundColor = '';
+      inactive_style.backgroundColor = 'blue';
     }
 
     return (
       <div>
-        <button onClick={() => this.setState({ display: 'All' })}> All </button>
-        <button onClick={() => this.setState({ display: 'Active' })}>
-          {' '}Active{' '}
+        <button
+          onClick={() => this.setState({ display: 'All' })}
+          style={all_style}
+        >
+          {' '}All{' '}
         </button>
-        <button onClick={() => this.setState({ display: 'Inactive' })}>
-          {' '}Inactive{' '}
+        <button
+          onClick={() => this.setState({ display: 'Active' })}
+          style={active_style}
+        >
+          Active
+        </button>
+        <button
+          onClick={() => this.setState({ display: 'Inactive' })}
+          style={inactive_style}
+        >
+          Inactive
         </button>
         <ul>{list}</ul>
       </div>
